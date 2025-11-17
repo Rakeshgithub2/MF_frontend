@@ -2,15 +2,39 @@
 
 import { useState, useMemo } from "react";
 import { motion } from "framer-motion";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import { Calculator, TrendingUp, Info, Download, Share2, AlertCircle } from "lucide-react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import {
+  Calculator,
+  TrendingUp,
+  Info,
+  Download,
+  Share2,
+  AlertCircle,
+} from "lucide-react";
 
 type FundType = "equity" | "debt" | "hybrid";
 type IncomeSlab = "below_2_5L" | "2_5L_to_5L" | "5L_to_10L" | "above_10L";
@@ -32,12 +56,13 @@ export default function TaxCalculator() {
   const [redemptionAmount, setRedemptionAmount] = useState<string>("150000");
   const [holdingPeriod, setHoldingPeriod] = useState<string>("24"); // in months
   const [incomeSlab, setIncomeSlab] = useState<IncomeSlab>("5L_to_10L");
-  const [hasIndexationBenefit, setHasIndexationBenefit] = useState<boolean>(false);
+  const [hasIndexationBenefit, setHasIndexationBenefit] =
+    useState<boolean>(false);
 
   // Tax rates and thresholds
   const TAX_RULES = {
     equity: {
-      stcg: { rate: 0.20, threshold: 12 }, // 20% for holding < 12 months
+      stcg: { rate: 0.2, threshold: 12 }, // 20% for holding < 12 months
       ltcg: { rate: 0.125, exemption: 125000, threshold: 12 }, // 12.5% for > 1L, exemption up to 1.25L
     },
     debt: {
@@ -45,16 +70,16 @@ export default function TaxCalculator() {
       ltcg: { rate: 0.125, threshold: 36, appliesIndexation: true }, // 12.5% without indexation or 20% with indexation
     },
     hybrid: {
-      stcg: { rate: 0.20, threshold: 12 }, // Treated as equity if >65% equity
+      stcg: { rate: 0.2, threshold: 12 }, // Treated as equity if >65% equity
       ltcg: { rate: 0.125, exemption: 125000, threshold: 12 },
     },
   };
 
   const INCOME_TAX_SLABS = {
-    "below_2_5L": { rate: 0, name: "Below ₹2.5 Lakh" },
+    below_2_5L: { rate: 0, name: "Below ₹2.5 Lakh" },
     "2_5L_to_5L": { rate: 0.05, name: "₹2.5L - ₹5L (5%)" },
-    "5L_to_10L": { rate: 0.20, name: "₹5L - ₹10L (20%)" },
-    "above_10L": { rate: 0.30, name: "Above ₹10L (30%)" },
+    "5L_to_10L": { rate: 0.2, name: "₹5L - ₹10L (20%)" },
+    above_10L: { rate: 0.3, name: "Above ₹10L (30%)" },
   };
 
   // Calculate gains
@@ -90,7 +115,7 @@ export default function TaxCalculator() {
         if (hasIndexationBenefit) {
           // 20% with indexation (assume 10% indexation benefit)
           const indexedGains = gains * 0.9; // After indexation
-          capitalGainsTax = indexedGains * 0.20;
+          capitalGainsTax = indexedGains * 0.2;
         } else {
           // 12.5% without indexation
           capitalGainsTax = gains * 0.125;
@@ -108,7 +133,7 @@ export default function TaxCalculator() {
     }
 
     // Calculate surcharge (if income > 50L, assume 10% surcharge for simplicity)
-    const surcharge = redemption > 5000000 ? capitalGainsTax * 0.10 : 0;
+    const surcharge = redemption > 5000000 ? capitalGainsTax * 0.1 : 0;
 
     // Calculate cess (4% on tax + surcharge)
     const cess = (capitalGainsTax + surcharge) * 0.04;
@@ -126,7 +151,15 @@ export default function TaxCalculator() {
       netProceeds,
       effectiveTaxRate,
     };
-  }, [fundType, investment, redemption, holding, incomeSlab, hasIndexationBenefit, gains]);
+  }, [
+    fundType,
+    investment,
+    redemption,
+    holding,
+    incomeSlab,
+    hasIndexationBenefit,
+    gains,
+  ]);
 
   const isLongTerm = holding >= TAX_RULES[fundType].ltcg.threshold;
 
@@ -162,7 +195,9 @@ export default function TaxCalculator() {
                   <Calculator className="w-6 h-6 text-white" />
                 </div>
                 <div>
-                  <CardTitle className="text-2xl">Capital Gains Tax Calculator</CardTitle>
+                  <CardTitle className="text-2xl">
+                    Capital Gains Tax Calculator
+                  </CardTitle>
                   <CardDescription className="text-gray-600">
                     Calculate LTCG & STCG tax on mutual fund investments
                   </CardDescription>
@@ -188,7 +223,9 @@ export default function TaxCalculator() {
           <Card>
             <CardHeader>
               <CardTitle>Investment Details</CardTitle>
-              <CardDescription>Enter your investment and redemption details</CardDescription>
+              <CardDescription>
+                Enter your investment and redemption details
+              </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
               {/* Fund Type */}
@@ -201,14 +238,17 @@ export default function TaxCalculator() {
                         <Info className="w-4 h-4 text-gray-400" />
                       </TooltipTrigger>
                       <TooltipContent>
-                        <p>Equity: >65% equity allocation</p>
-                        <p>Debt: >65% debt allocation</p>
+                        <p>Equity: &gt;65% equity allocation</p>
+                        <p>Debt: &gt;65% debt allocation</p>
                         <p>Hybrid: Mixed allocation</p>
                       </TooltipContent>
                     </Tooltip>
                   </TooltipProvider>
                 </Label>
-                <Select value={fundType} onValueChange={(val) => setFundType(val as FundType)}>
+                <Select
+                  value={fundType}
+                  onValueChange={(val) => setFundType(val as FundType)}
+                >
                   <SelectTrigger>
                     <SelectValue />
                   </SelectTrigger>
@@ -268,14 +308,18 @@ export default function TaxCalculator() {
                   placeholder="24"
                 />
                 <p className="text-sm text-gray-500">
-                  Threshold: {TAX_RULES[fundType].ltcg.threshold} months for LTCG
+                  Threshold: {TAX_RULES[fundType].ltcg.threshold} months for
+                  LTCG
                 </p>
               </div>
 
               {/* Income Slab (for Debt STCG) */}
               {fundType === "debt" && !isLongTerm && (
                 <div className="space-y-2">
-                  <Label htmlFor="incomeSlab" className="flex items-center gap-2">
+                  <Label
+                    htmlFor="incomeSlab"
+                    className="flex items-center gap-2"
+                  >
                     Your Income Slab
                     <TooltipProvider>
                       <Tooltip>
@@ -283,12 +327,18 @@ export default function TaxCalculator() {
                           <Info className="w-4 h-4 text-gray-400" />
                         </TooltipTrigger>
                         <TooltipContent>
-                          <p>STCG on debt funds is taxed at your income tax slab rate</p>
+                          <p>
+                            STCG on debt funds is taxed at your income tax slab
+                            rate
+                          </p>
                         </TooltipContent>
                       </Tooltip>
                     </TooltipProvider>
                   </Label>
-                  <Select value={incomeSlab} onValueChange={(val) => setIncomeSlab(val as IncomeSlab)}>
+                  <Select
+                    value={incomeSlab}
+                    onValueChange={(val) => setIncomeSlab(val as IncomeSlab)}
+                  >
                     <SelectTrigger>
                       <SelectValue />
                     </SelectTrigger>
@@ -311,19 +361,29 @@ export default function TaxCalculator() {
                       type="checkbox"
                       id="indexation"
                       checked={hasIndexationBenefit}
-                      onChange={(e) => setHasIndexationBenefit(e.target.checked)}
+                      onChange={(e) =>
+                        setHasIndexationBenefit(e.target.checked)
+                      }
                       className="w-4 h-4"
                     />
-                    <Label htmlFor="indexation" className="flex items-center gap-2 cursor-pointer">
-                      Apply Indexation Benefit (20% with indexation vs 12.5% without)
+                    <Label
+                      htmlFor="indexation"
+                      className="flex items-center gap-2 cursor-pointer"
+                    >
+                      Apply Indexation Benefit (20% with indexation vs 12.5%
+                      without)
                       <TooltipProvider>
                         <Tooltip>
                           <TooltipTrigger>
                             <Info className="w-4 h-4 text-gray-400" />
                           </TooltipTrigger>
                           <TooltipContent>
-                            <p>Indexation adjusts purchase price for inflation</p>
-                            <p>20% tax on indexed gains vs 12.5% on actual gains</p>
+                            <p>
+                              Indexation adjusts purchase price for inflation
+                            </p>
+                            <p>
+                              20% tax on indexed gains vs 12.5% on actual gains
+                            </p>
                           </TooltipContent>
                         </Tooltip>
                       </TooltipProvider>
@@ -411,27 +471,40 @@ export default function TaxCalculator() {
                   {formatCurrency(taxCalculation.gains)}
                 </p>
                 <p className="text-xs text-gray-500 mt-1">
-                  {((taxCalculation.gains / investment) * 100).toFixed(2)}% return
+                  {((taxCalculation.gains / investment) * 100).toFixed(2)}%
+                  return
                 </p>
               </div>
 
               {/* Tax Components */}
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
-                  <span className="text-sm text-gray-600">Capital Gains Tax</span>
-                  <span className="font-semibold">{formatCurrency(taxCalculation.capitalGainsTax)}</span>
+                  <span className="text-sm text-gray-600">
+                    Capital Gains Tax
+                  </span>
+                  <span className="font-semibold">
+                    {formatCurrency(taxCalculation.capitalGainsTax)}
+                  </span>
                 </div>
 
                 {taxCalculation.surcharge > 0 && (
                   <div className="flex items-center justify-between">
-                    <span className="text-sm text-gray-600">Surcharge (10%)</span>
-                    <span className="font-semibold">{formatCurrency(taxCalculation.surcharge)}</span>
+                    <span className="text-sm text-gray-600">
+                      Surcharge (10%)
+                    </span>
+                    <span className="font-semibold">
+                      {formatCurrency(taxCalculation.surcharge)}
+                    </span>
                   </div>
                 )}
 
                 <div className="flex items-center justify-between">
-                  <span className="text-sm text-gray-600">Health & Education Cess (4%)</span>
-                  <span className="font-semibold">{formatCurrency(taxCalculation.cess)}</span>
+                  <span className="text-sm text-gray-600">
+                    Health & Education Cess (4%)
+                  </span>
+                  <span className="font-semibold">
+                    {formatCurrency(taxCalculation.cess)}
+                  </span>
                 </div>
 
                 <div className="pt-3 border-t border-gray-200">
@@ -442,7 +515,8 @@ export default function TaxCalculator() {
                     </span>
                   </div>
                   <p className="text-xs text-gray-500">
-                    Effective rate: {taxCalculation.effectiveTaxRate.toFixed(2)}%
+                    Effective rate: {taxCalculation.effectiveTaxRate.toFixed(2)}
+                    %
                   </p>
                 </div>
 
@@ -460,7 +534,9 @@ export default function TaxCalculator() {
               <div className="p-3 bg-blue-50 rounded-lg border border-blue-200">
                 <div className="flex items-center gap-2 mb-2">
                   <AlertCircle className="w-4 h-4 text-blue-600" />
-                  <span className="text-sm font-semibold text-blue-900">Tax Rate Applied</span>
+                  <span className="text-sm font-semibold text-blue-900">
+                    Tax Rate Applied
+                  </span>
                 </div>
                 <p className="text-xs text-gray-600">
                   {isLongTerm ? (
@@ -475,7 +551,9 @@ export default function TaxCalculator() {
                     <>
                       {fundType === "equity" || fundType === "hybrid"
                         ? `20% flat rate`
-                        : `As per your income tax slab (${INCOME_TAX_SLABS[incomeSlab].rate * 100}%)`}
+                        : `As per your income tax slab (${
+                            INCOME_TAX_SLABS[incomeSlab].rate * 100
+                          }%)`}
                     </>
                   )}
                 </p>
@@ -507,7 +585,9 @@ export default function TaxCalculator() {
         <Card>
           <CardHeader>
             <CardTitle>Tax Rate Reference</CardTitle>
-            <CardDescription>Current tax rates for different fund types and holding periods</CardDescription>
+            <CardDescription>
+              Current tax rates for different fund types and holding periods
+            </CardDescription>
           </CardHeader>
           <CardContent>
             <div className="overflow-x-auto">
@@ -525,37 +605,57 @@ export default function TaxCalculator() {
                   <tr className="border-b">
                     <td className="py-3 px-4 font-medium">Equity</td>
                     <td className="py-3 px-4">&lt; 12 months</td>
-                    <td className="py-3 px-4"><Badge variant="outline">STCG</Badge></td>
+                    <td className="py-3 px-4">
+                      <Badge variant="outline">STCG</Badge>
+                    </td>
                     <td className="py-3 px-4">20%</td>
-                    <td className="py-3 px-4 text-gray-600">Flat rate + cess</td>
+                    <td className="py-3 px-4 text-gray-600">
+                      Flat rate + cess
+                    </td>
                   </tr>
                   <tr className="border-b">
                     <td className="py-3 px-4 font-medium">Equity</td>
                     <td className="py-3 px-4">≥ 12 months</td>
-                    <td className="py-3 px-4"><Badge variant="outline">LTCG</Badge></td>
+                    <td className="py-3 px-4">
+                      <Badge variant="outline">LTCG</Badge>
+                    </td>
                     <td className="py-3 px-4">12.5%</td>
-                    <td className="py-3 px-4 text-gray-600">₹1.25L exemption</td>
+                    <td className="py-3 px-4 text-gray-600">
+                      ₹1.25L exemption
+                    </td>
                   </tr>
                   <tr className="border-b">
                     <td className="py-3 px-4 font-medium">Debt</td>
                     <td className="py-3 px-4">&lt; 36 months</td>
-                    <td className="py-3 px-4"><Badge variant="outline">STCG</Badge></td>
+                    <td className="py-3 px-4">
+                      <Badge variant="outline">STCG</Badge>
+                    </td>
                     <td className="py-3 px-4">Slab Rate</td>
-                    <td className="py-3 px-4 text-gray-600">As per income tax slab</td>
+                    <td className="py-3 px-4 text-gray-600">
+                      As per income tax slab
+                    </td>
                   </tr>
                   <tr className="border-b">
                     <td className="py-3 px-4 font-medium">Debt</td>
                     <td className="py-3 px-4">≥ 36 months</td>
-                    <td className="py-3 px-4"><Badge variant="outline">LTCG</Badge></td>
+                    <td className="py-3 px-4">
+                      <Badge variant="outline">LTCG</Badge>
+                    </td>
                     <td className="py-3 px-4">12.5% / 20%</td>
-                    <td className="py-3 px-4 text-gray-600">With/without indexation</td>
+                    <td className="py-3 px-4 text-gray-600">
+                      With/without indexation
+                    </td>
                   </tr>
                   <tr>
                     <td className="py-3 px-4 font-medium">Hybrid</td>
                     <td className="py-3 px-4">Any</td>
-                    <td className="py-3 px-4"><Badge variant="outline">Both</Badge></td>
+                    <td className="py-3 px-4">
+                      <Badge variant="outline">Both</Badge>
+                    </td>
                     <td className="py-3 px-4">As Equity</td>
-                    <td className="py-3 px-4 text-gray-600">If equity &gt; 65%</td>
+                    <td className="py-3 px-4 text-gray-600">
+                      If equity &gt; 65%
+                    </td>
                   </tr>
                 </tbody>
               </table>
@@ -567,10 +667,19 @@ export default function TaxCalculator() {
                 <div className="text-sm text-gray-700">
                   <p className="font-semibold mb-1">Important Notes:</p>
                   <ul className="list-disc list-inside space-y-1 text-gray-600">
-                    <li>Surcharge of 10% applies if total income exceeds ₹50 lakhs</li>
-                    <li>Health & Education Cess of 4% applies on (Tax + Surcharge)</li>
-                    <li>State governments do not levy separate capital gains tax</li>
-                    <li>Tax rates are subject to change as per Union Budget announcements</li>
+                    <li>
+                      Surcharge of 10% applies if total income exceeds ₹50 lakhs
+                    </li>
+                    <li>
+                      Health & Education Cess of 4% applies on (Tax + Surcharge)
+                    </li>
+                    <li>
+                      State governments do not levy separate capital gains tax
+                    </li>
+                    <li>
+                      Tax rates are subject to change as per Union Budget
+                      announcements
+                    </li>
                   </ul>
                 </div>
               </div>
