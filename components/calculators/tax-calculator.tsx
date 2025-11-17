@@ -13,7 +13,7 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/comp
 import { Calculator, TrendingUp, Info, Download, Share2, AlertCircle } from "lucide-react";
 
 type FundType = "equity" | "debt" | "hybrid";
-type IncomeSlab = "below_2.5L" | "2.5L_to_5L" | "5L_to_10L" | "above_10L";
+type IncomeSlab = "below_2_5L" | "2_5L_to_5L" | "5L_to_10L" | "above_10L";
 
 interface TaxCalculation {
   gains: number;
@@ -51,10 +51,10 @@ export default function TaxCalculator() {
   };
 
   const INCOME_TAX_SLABS = {
-    below_2.5L: { rate: 0, name: "Below ₹2.5 Lakh" },
-    "2.5L_to_5L": { rate: 0.05, name: "₹2.5L - ₹5L (5%)" },
+    "below_2_5L": { rate: 0, name: "Below ₹2.5 Lakh" },
+    "2_5L_to_5L": { rate: 0.05, name: "₹2.5L - ₹5L (5%)" },
     "5L_to_10L": { rate: 0.20, name: "₹5L - ₹10L (20%)" },
-    above_10L: { rate: 0.30, name: "Above ₹10L (30%)" },
+    "above_10L": { rate: 0.30, name: "Above ₹10L (30%)" },
   };
 
   // Calculate gains

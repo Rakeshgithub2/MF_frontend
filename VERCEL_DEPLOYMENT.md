@@ -3,6 +3,7 @@
 ## Environment Configuration
 
 The frontend has been configured to use your deployed backend:
+
 ```
 Backend URL: https://mf-backend-bd96.vercel.app
 ```
@@ -12,6 +13,7 @@ Backend URL: https://mf-backend-bd96.vercel.app
 ### Option 1: Automatic Deployment (Recommended)
 
 1. **Push to GitHub:**
+
    ```bash
    cd "c:\mutual fund\mutual-funds-portal"
    git add -A
@@ -20,6 +22,7 @@ Backend URL: https://mf-backend-bd96.vercel.app
    ```
 
 2. **Import to Vercel:**
+
    - Go to https://vercel.com/new
    - Click **Import Git Repository**
    - Select: `Rakeshgithub2/MF_frontend`
@@ -27,6 +30,7 @@ Backend URL: https://mf-backend-bd96.vercel.app
 
 3. **Configure Environment Variables:**
    In Vercel Dashboard → Settings → Environment Variables, add:
+
    ```
    NEXT_PUBLIC_API_URL=https://mf-backend-bd96.vercel.app/api
    NODE_ENV=production
@@ -93,11 +97,13 @@ GOOGLE_REDIRECT_URI=https://mf-backend-bd96.vercel.app/api/auth/google/callback
 ## Testing After Deployment
 
 1. **Test API Connection:**
+
    ```
    https://your-frontend.vercel.app
    ```
 
 2. **Check Console for Errors:**
+
    - Open browser DevTools → Console
    - Look for CORS errors or API errors
 
@@ -110,14 +116,17 @@ GOOGLE_REDIRECT_URI=https://mf-backend-bd96.vercel.app/api/auth/google/callback
 ## Troubleshooting
 
 ### CORS Errors
+
 - Add your frontend URL to backend `FRONTEND_URL` variable
 - Redeploy backend after updating
 
 ### API Not Found (404)
+
 - Check `NEXT_PUBLIC_API_URL` is set correctly
 - Verify backend is deployed and working
 
 ### Google OAuth Fails
+
 - Update Google Console with new URLs
 - Check `GOOGLE_REDIRECT_URI` in backend matches exactly
 
