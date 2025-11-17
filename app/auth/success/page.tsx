@@ -5,6 +5,9 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useToast } from "@/hooks/use-toast";
 import { setToken, setRefreshToken, setUser } from "@/lib/api";
 
+// Force dynamic rendering for this page
+export const dynamic = "force-dynamic";
+
 function AuthSuccessContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
