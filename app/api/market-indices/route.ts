@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 
 export async function GET() {
   try {
-    const response = await fetch("http://localhost:3002/api/market-indices", {
+    const response = await fetch(process.env.NEXT_PUBLIC_API_URL?.replace('/api', '') + "/api/market-indices" || "https://mf-backend-bd96.vercel.app/api/market-indices", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

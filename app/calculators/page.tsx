@@ -193,7 +193,7 @@ export default function CalculatorsPage() {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
 
-    const response = await fetch("http://localhost:3002/api/calculator/sip", {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'https://mf-backend-bd96.vercel.app/api'}/calculator/sip`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -212,7 +212,7 @@ export default function CalculatorsPage() {
     const formData = new FormData(e.currentTarget);
 
     const response = await fetch(
-      "http://localhost:3002/api/calculator/lumpsum",
+      `${process.env.NEXT_PUBLIC_API_URL || 'https://mf-backend-bd96.vercel.app/api'}/calculator/lumpsum`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -232,7 +232,7 @@ export default function CalculatorsPage() {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
 
-    const response = await fetch("http://localhost:3002/api/calculator/goal", {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'https://mf-backend-bd96.vercel.app/api'}/calculator/goal`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -253,7 +253,7 @@ export default function CalculatorsPage() {
     const formData = new FormData(e.currentTarget);
 
     const response = await fetch(
-      "http://localhost:3002/api/calculator/step-up-sip",
+      `${process.env.NEXT_PUBLIC_API_URL || 'https://mf-backend-bd96.vercel.app/api'}/calculator/step-up-sip`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -275,7 +275,7 @@ export default function CalculatorsPage() {
     const formData = new FormData(e.currentTarget);
 
     const response = await fetch(
-      "http://localhost:3002/api/calculator/retirement",
+      `${process.env.NEXT_PUBLIC_API_URL || 'https://mf-backend-bd96.vercel.app/api'}/calculator/retirement`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },

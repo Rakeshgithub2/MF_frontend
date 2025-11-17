@@ -345,7 +345,7 @@ export default function MarketIndexPage() {
     const fetchIndexData = async () => {
       try {
         const response = await fetch(
-          "http://localhost:3002/api/market-indices"
+          process.env.NEXT_PUBLIC_API_URL?.replace('/api', '') + "/api/market-indices" || "https://mf-backend-bd96.vercel.app/api/market-indices"
         );
         const apiData = await response.json();
 
