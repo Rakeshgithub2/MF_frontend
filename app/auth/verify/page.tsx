@@ -10,7 +10,7 @@ import { Loader2, Check, X } from "lucide-react";
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3002/api";
 
 // Force dynamic rendering
-export const dynamic = 'force-dynamic';
+export const dynamic = "force-dynamic";
 
 function VerifyMagicLinkContent() {
   const [status, setStatus] = useState<"loading" | "success" | "error">(
@@ -156,11 +156,13 @@ function VerifyMagicLinkContent() {
 
 export default function VerifyMagicLinkPage() {
   return (
-    <Suspense fallback={
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
-        <Loader2 className="w-12 h-12 animate-spin text-purple-600" />
-      </div>
-    }>
+    <Suspense
+      fallback={
+        <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
+          <Loader2 className="w-12 h-12 animate-spin text-purple-600" />
+        </div>
+      }
+    >
       <VerifyMagicLinkContent />
     </Suspense>
   );

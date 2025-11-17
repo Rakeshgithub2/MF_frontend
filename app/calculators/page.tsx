@@ -410,7 +410,7 @@ export default function CalculatorsPage() {
             <button
               onClick={() => {
                 console.log("Back button clicked!");
-                window.location.href = "http://localhost:5001";
+                window.location.href = "/";
               }}
               className="inline-flex items-center gap-2 px-4 py-2 border-2 border-blue-200 dark:border-blue-800 rounded-md hover:bg-blue-50 dark:hover:bg-blue-950/50 transition-all hover:scale-105 cursor-pointer bg-white dark:bg-gray-900 relative z-50"
             >
