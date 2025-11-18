@@ -2,18 +2,16 @@ import { NextResponse } from "next/server";
 
 export async function GET() {
   try {
-    const response = await fetch(
-      process.env.NEXT_PUBLIC_API_URL?.replace("/api", "") +
-        "/api/market-indices" ||
-        "https://mf-backend-bd96.vercel.app/api/market-indices",
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        cache: "no-store",
-      }
-    );
+    const apiUrl =
+      process.env.NEXT_PUBLIC_API_URL || "http://localhost:3002/api";
+    const baseUrl = apiUrl.replace("/api", "");
+    const response = await fetch(`${baseUrl}/api/market-indices`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      cache: "no-store",
+    });
 
     if (!response.ok) {
       throw new Error(`Backend API returned ${response.status}`);

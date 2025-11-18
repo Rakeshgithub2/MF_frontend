@@ -344,11 +344,10 @@ export default function MarketIndexPage() {
   useEffect(() => {
     const fetchIndexData = async () => {
       try {
-        const response = await fetch(
-          process.env.NEXT_PUBLIC_API_URL?.replace("/api", "") +
-            "/api/market-indices" ||
-            "https://mf-backend-bd96.vercel.app/api/market-indices"
-        );
+        const apiUrl =
+          process.env.NEXT_PUBLIC_API_URL || "http://localhost:3002/api";
+        const baseUrl = apiUrl.replace("/api", "");
+        const response = await fetch(`${baseUrl}/api/market-indices`);
         const apiData = await response.json();
 
         if (!apiData.success || !apiData.data) {

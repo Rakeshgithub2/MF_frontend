@@ -193,21 +193,18 @@ export default function CalculatorsPage() {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
 
-    const response = await fetch(
-      `${
-        process.env.NEXT_PUBLIC_API_URL ||
-        "https://mf-backend-bd96.vercel.app/api"
-      }/calculator/sip`,
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          monthlyInvestment: formData.get("monthlyInvestment"),
-          expectedReturn: formData.get("expectedReturn"),
-          timePeriod: formData.get("timePeriod"),
-        }),
-      }
-    );
+    const apiUrl =
+      process.env.NEXT_PUBLIC_API_URL || "http://localhost:3002/api";
+
+    const response = await fetch(`${apiUrl}/calculator/sip`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        monthlyInvestment: formData.get("monthlyInvestment"),
+        expectedReturn: formData.get("expectedReturn"),
+        timePeriod: formData.get("timePeriod"),
+      }),
+    });
 
     const data = await response.json();
     if (data.data) setSipResult(data.data);
@@ -217,21 +214,18 @@ export default function CalculatorsPage() {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
 
-    const response = await fetch(
-      `${
-        process.env.NEXT_PUBLIC_API_URL ||
-        "https://mf-backend-bd96.vercel.app/api"
-      }/calculator/lumpsum`,
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          investment: formData.get("investment"),
-          expectedReturn: formData.get("expectedReturn"),
-          timePeriod: formData.get("timePeriod"),
-        }),
-      }
-    );
+    const apiUrl =
+      process.env.NEXT_PUBLIC_API_URL || "http://localhost:3002/api";
+
+    const response = await fetch(`${apiUrl}/calculator/lumpsum`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        investment: formData.get("investment"),
+        expectedReturn: formData.get("expectedReturn"),
+        timePeriod: formData.get("timePeriod"),
+      }),
+    });
 
     const data = await response.json();
     if (data.data) setLumpsumResult(data.data);
@@ -241,23 +235,20 @@ export default function CalculatorsPage() {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
 
-    const response = await fetch(
-      `${
-        process.env.NEXT_PUBLIC_API_URL ||
-        "https://mf-backend-bd96.vercel.app/api"
-      }/calculator/goal`,
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          targetAmount: formData.get("targetAmount"),
-          timePeriod: formData.get("timePeriod"),
-          expectedReturn: formData.get("expectedReturn"),
-          currentSavings: formData.get("currentSavings") || 0,
-          goalName: formData.get("goalName"),
-        }),
-      }
-    );
+    const apiUrl =
+      process.env.NEXT_PUBLIC_API_URL || "http://localhost:3002/api";
+
+    const response = await fetch(`${apiUrl}/calculator/goal`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        targetAmount: formData.get("targetAmount"),
+        timePeriod: formData.get("timePeriod"),
+        expectedReturn: formData.get("expectedReturn"),
+        currentSavings: formData.get("currentSavings") || 0,
+        goalName: formData.get("goalName"),
+      }),
+    });
 
     const data = await response.json();
     if (data.data) setGoalResult(data.data);
@@ -267,22 +258,19 @@ export default function CalculatorsPage() {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
 
-    const response = await fetch(
-      `${
-        process.env.NEXT_PUBLIC_API_URL ||
-        "https://mf-backend-bd96.vercel.app/api"
-      }/calculator/step-up-sip`,
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          initialSIP: formData.get("initialSIP"),
-          stepUpPercentage: formData.get("stepUpPercentage"),
-          expectedReturn: formData.get("expectedReturn"),
-          timePeriod: formData.get("timePeriod"),
-        }),
-      }
-    );
+    const apiUrl =
+      process.env.NEXT_PUBLIC_API_URL || "http://localhost:3002/api";
+
+    const response = await fetch(`${apiUrl}/calculator/step-up-sip`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        initialSIP: formData.get("initialSIP"),
+        stepUpPercentage: formData.get("stepUpPercentage"),
+        expectedReturn: formData.get("expectedReturn"),
+        timePeriod: formData.get("timePeriod"),
+      }),
+    });
 
     const data = await response.json();
     if (data.data) setStepUpResult(data.data);
@@ -292,24 +280,21 @@ export default function CalculatorsPage() {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
 
-    const response = await fetch(
-      `${
-        process.env.NEXT_PUBLIC_API_URL ||
-        "https://mf-backend-bd96.vercel.app/api"
-      }/calculator/retirement`,
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          currentAge: formData.get("currentAge"),
-          retirementAge: formData.get("retirementAge"),
-          currentSavings: formData.get("currentSavings") || 0,
-          monthlyExpense: formData.get("monthlyExpense"),
-          expectedReturn: formData.get("expectedReturn") || 12,
-          inflationRate: formData.get("inflationRate") || 6,
-        }),
-      }
-    );
+    const apiUrl =
+      process.env.NEXT_PUBLIC_API_URL || "http://localhost:3002/api";
+
+    const response = await fetch(`${apiUrl}/calculator/retirement`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        currentAge: formData.get("currentAge"),
+        retirementAge: formData.get("retirementAge"),
+        currentSavings: formData.get("currentSavings") || 0,
+        monthlyExpense: formData.get("monthlyExpense"),
+        expectedReturn: formData.get("expectedReturn") || 12,
+        inflationRate: formData.get("inflationRate") || 6,
+      }),
+    });
 
     const data = await response.json();
     if (data.data) setRetirementResult(data.data);
